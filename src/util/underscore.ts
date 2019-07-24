@@ -27,6 +27,11 @@ export function promisify (fn: any) {
   }
 }
 
+export function dangerouslyStringify (value: any): any {
+  if (isNil(value)) return ''
+  return toLiquid(value)
+}
+
 export function stringify (value: any): string {
   if (isNil(value)) return ''
   value = toLiquid(value)

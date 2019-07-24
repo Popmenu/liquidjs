@@ -87,7 +87,7 @@ export default class Liquid {
   }
   public express () {
     const self = this
-    return function (this: any, filePath: string, ctx: object, cb: (err: Error | null, html?: string) => void) {
+    return function (this: any, filePath: string, ctx: object, cb: (err: Error | null, html?: any[]) => void) {
       const opts = { root: this.root }
       self.renderFile(filePath, ctx, opts).then(html => cb(null, html), cb)
     }
