@@ -1,0 +1,34 @@
+import Context from './context/context';
+import * as Types from './types';
+import ITemplate from './template/itemplate';
+import Render from './render/render';
+import Parser from './parser/parser';
+import ITagImplOptions from './template/tag/itag-impl-options';
+import { isTruthy, isFalsy, evalExp, evalValue } from './render/syntax';
+import { LiquidOptions, NormalizedFullOptions } from './liquid-options';
+import { FilterImplOptions } from './template/filter/filter-impl-options';
+export default class Liquid {
+    options: NormalizedFullOptions;
+    renderer: Render;
+    parser: Parser;
+    private cache;
+    private tokenizer;
+    private fs;
+    constructor(opts?: LiquidOptions);
+    parse(html: string, filepath?: string): ITemplate[];
+    render(tpl: ITemplate[], ctx?: object, opts?: LiquidOptions): Promise<any[]>;
+    parseAndRender(html: string, ctx?: object, opts?: LiquidOptions): Promise<any[]>;
+    getTemplate(file: string, opts?: LiquidOptions): Promise<any>;
+    renderFile(file: string, ctx?: object, opts?: LiquidOptions): Promise<any[]>;
+    evalValue(str: string, ctx: Context): Promise<any>;
+    registerFilter(name: string, filter: FilterImplOptions): void;
+    registerTag(name: string, tag: ITagImplOptions): void;
+    plugin(plugin: (this: Liquid, L: typeof Liquid) => void): void;
+    express(): (this: any, filePath: string, ctx: object, cb: (err: Error | null, html?: any[] | undefined) => void) => void;
+    static default: typeof Liquid;
+    static isTruthy: typeof isTruthy;
+    static isFalsy: typeof isFalsy;
+    static evalExp: typeof evalExp;
+    static evalValue: typeof evalValue;
+    static Types: typeof Types;
+}

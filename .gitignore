@@ -9,7 +9,6 @@ coverage/
 
 # modules
 node_modules/
-dist/
 
 # editors
 .*.swp
